@@ -923,7 +923,7 @@ export const SEED_FUNDRAISER: FundraiserCampaign = {
   goalAmount: 3200000,
   currentAmount: 1890000,
   currency: 'ARS',
-  videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0', // Video embed / player
+  videoUrl: './video-inmersion.mp4',
   videoThumbnail: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80',
   videoTitle: '¿Para qué necesitamos este dinero? La voz de los sacerdotes y estudiantes',
   videoDescription: 'En este video explicativo, los sacerdotes coordinadores (Telma, Luis, Nicolás), consejeros (Pablo, Viviane) y los integrantes del Proseminario comparten el sentido profundo del retiro de 10 días (11 al 20 de Enero) en la Granja Épicos y por qué la solidaridad comunitaria hace posible que nadie quede afuera por motivos económicos.',

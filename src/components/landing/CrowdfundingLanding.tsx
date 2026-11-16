@@ -36,6 +36,7 @@ export const CrowdfundingLanding: React.FC = () => {
   // Modals state
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+  const [videoSourceType, setVideoSourceType] = useState<'local' | 'drive'>('local');
 
   // Donation form state
   const [donorName, setDonorName] = useState('');
@@ -349,15 +350,24 @@ export const CrowdfundingLanding: React.FC = () => {
                 «La solidaridad comunitaria hace posible que quien tiene menos recursos reciba el apoyo fraterno de quien puede brindar un poco más.»
               </blockquote>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setIsVideoModalOpen(true)}
-                  className="px-5 py-3 bg-white/10 hover:bg-white/20 text-stone-100 border border-white/20 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition-colors"
+                  className="px-5 py-3 bg-amber-700 hover:bg-amber-800 text-white rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition-all shadow-md"
                 >
-                  <Play className="w-4 h-4 text-amber-400" />
-                  <span>Reproducir Video Completo</span>
+                  <Play className="w-4 h-4 fill-white" />
+                  <span>Reproducir Video</span>
                 </button>
+                <a
+                  href="https://drive.google.com/file/d/12zkYM2V17EQxHbh9HdTORKES05AkTieE/view?usp=sharing"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-3 bg-white/10 hover:bg-white/20 text-stone-200 border border-white/20 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center space-x-1.5"
+                >
+                  <span>Ver en Google Drive</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+                </a>
               </div>
             </div>
           </div>
@@ -919,14 +929,66 @@ export const CrowdfundingLanding: React.FC = () => {
         maxWidth="3xl"
       >
         <div className="space-y-4">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-inner">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1"
-              title="Video explicativo del viaje del Proseminario"
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs pb-1 border-b border-stone-100">
+            <div className="flex items-center space-x-2">
+              <span className="text-stone-400 font-medium">Fuente:</span>
+              <button
+                type="button"
+                onClick={() => setVideoSourceType('local')}
+                className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
+                  videoSourceType === 'local' 
+                    ? 'bg-amber-800 text-white shadow-2xs' 
+                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                }`}
+              >
+                Reproductor Directo (HD)
+              </button>
+              <button
+                type="button"
+                onClick={() => setVideoSourceType('drive')}
+                className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
+                  videoSourceType === 'drive' 
+                    ? 'bg-amber-800 text-white shadow-2xs' 
+                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                }`}
+              >
+                Google Drive
+              </button>
+            </div>
+
+            <a
+              href="https://drive.google.com/file/d/12zkYM2V17EQxHbh9HdTORKES05AkTieE/view?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+              className="text-amber-800 hover:text-amber-900 font-semibold flex items-center space-x-1"
+            >
+              <span>Abrir en Google Drive</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-inner flex items-center justify-center">
+            {videoSourceType === 'local' ? (
+              <video
+                key="local-video"
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain"
+              >
+                <source src="./video-inmersion.mp4" type="video/mp4" />
+                Tu navegador no soporta reproducción directa de video.
+              </video>
+            ) : (
+              <iframe
+                key="drive-video"
+                src="https://drive.google.com/file/d/12zkYM2V17EQxHbh9HdTORKES05AkTieE/preview"
+                title="Video explicativo del viaje del Proseminario en Google Drive"
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
           </div>
 
           <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-stone-200 text-xs text-stone-700 font-serif leading-relaxed">
