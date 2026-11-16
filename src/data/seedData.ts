@@ -921,7 +921,7 @@ export const SEED_FUNDRAISER: FundraiserCampaign = {
   title: 'Campaña Solidaria: Viaje de Inmersión Proseminario 2027',
   subtitle: 'Fondo comunitario para cubrir hospedaje, alimentación biodinámica y becas de viaje para todos los integrantes.',
   goalAmount: 3200000,
-  currentAmount: 1890000,
+  currentAmount: 0,
   currency: 'ARS',
   videoUrl: './video-inmersion.mp4',
   videoThumbnail: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80',
@@ -929,7 +929,7 @@ export const SEED_FUNDRAISER: FundraiserCampaign = {
   videoDescription: 'En este video explicativo, los sacerdotes coordinadores (Telma, Luis, Nicolás), consejeros (Pablo, Viviane) y los integrantes del Proseminario comparten el sentido profundo del retiro de 10 días (11 al 20 de Enero) en la Granja Épicos y por qué la solidaridad comunitaria hace posible que nadie quede afuera por motivos económicos.',
   aliasCbu: 'proseminario.epicos',
   cbuNumber: '0000003100045892147852',
-  titular: 'Asociación Civil Comunidad de Cristianos',
+  titular: 'Fondo de Estudiantes del Proseminario',
   banco: 'Banco Credicoop Cooperativo',
   mercadoPagoLink: 'https://link.mercadopago.com.ar/proseminarioepicos',
   breakdown: [
@@ -949,44 +949,7 @@ export const SEED_FUNDRAISER: FundraiserCampaign = {
       description: 'Cuadernos de estudio, velas de cera de abejas, vestiduras para el Acto de Consagración y elementos de trabajo en la tierra.'
     }
   ],
-  contributions: [
-    {
-      id: 'don_1',
-      donorName: 'Comunidad de Cristianos de Buenos Aires (Fondo Pastoral)',
-      amount: 600000,
-      date: '2026-09-18',
-      message: 'Bendiciones para este impulso formador en la tierra fértil de Exaltación.'
-    },
-    {
-      id: 'don_2',
-      donorName: 'Familia Stein',
-      amount: 350000,
-      date: '2026-09-24',
-      message: 'Con profunda alegría apoyando el camino de los futuros servidores de la comunidad.'
-    },
-    {
-      id: 'don_3',
-      donorName: 'Círculo de Amigos de Córdoba',
-      amount: 280000,
-      date: '2026-09-29',
-      message: 'Para que todos los jóvenes del interior puedan viajar.'
-    },
-    {
-      id: 'don_4',
-      donorName: 'Donante Anónimo',
-      amount: 450000,
-      date: '2026-10-02',
-      message: 'En gratitud por los sacramentos renovados.',
-      isAnonymous: true
-    },
-    {
-      id: 'don_5',
-      donorName: 'Grupo de Euritmia Montevideo',
-      amount: 210000,
-      date: '2026-10-06',
-      message: 'Abrazo fraternal desde Uruguay para Clara y todo el grupo.'
-    }
-  ]
+  contributions: []
 };
 
 export const SEED_IMMERSION_TRIP: ImmersionTrip = {

@@ -108,7 +108,7 @@ export const CrowdfundingLanding: React.FC = () => {
   const faqs = [
     {
       q: '¿Cómo se administran los fondos recaudados?',
-      a: 'Todos los aportes ingresan a la cuenta oficial de la Asociación Civil Comunidad de Cristianos (Banco Credicoop) con personería jurídica y destino exclusivo al fondo del Proseminario. La administración y rendición de cuentas es auditada por el equipo de sacerdotes coordinadores y la secretaría contable comunitaria.'
+      a: 'Somos un grupo de estudiantes del Proseminario de la Comunidad de Cristianos que estamos solicitando colaboración económica para costear los gastos del retiro de inmersión en Granja Épicos. Todos los aportes se administran de forma comunitaria y transparente, destinados íntegramente a cubrir el hospedaje, la alimentación biodinámica y los pasajes del grupo.'
     },
     {
       q: '¿Puedo colaborar desde fuera de Argentina (Uruguay, Chile, etc.)?',
@@ -420,7 +420,7 @@ export const CrowdfundingLanding: React.FC = () => {
         <div className="bg-[#FAF7F2] p-5 rounded-2xl border border-amber-200/70 text-xs text-stone-700 font-serif flex items-start space-x-3">
           <ShieldCheck className="w-5 h-5 text-amber-800 shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            <strong>Garantía institucional:</strong> La recaudación es gestionada bajo la figura de la <em>Asociación Civil Comunidad de Cristianos</em>. No existen intermediarios lucrativos ni gastos administrativos: el 100% de lo recaudado cubre directamente la estadía, los traslados y el material pedagógico de los participantes.
+            <strong>Transparencia fraterna:</strong> Somos un grupo de estudiantes del Proseminario de la Comunidad de Cristianos solicitando colaboración económica para hacer posible nuestro retiro de inmersión. No existen intermediarios ni comisiones: el 100% de lo recaudado cubre directamente la estadía, los traslados y el material pedagógico de los participantes.
           </p>
         </div>
       </section>
@@ -681,7 +681,7 @@ export const CrowdfundingLanding: React.FC = () => {
               <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200 text-xs text-stone-600 space-y-1 font-serif">
                 <p><strong>Titular:</strong> {fundraiser.titular}</p>
                 <p><strong>Banco:</strong> {fundraiser.banco}</p>
-                <p><strong>Tipo de Cuenta:</strong> Cuenta Corriente Especial (Asoc. Civil sin fines de lucro)</p>
+                <p><strong>Destino:</strong> Fondo Solidario de Estudiantes del Proseminario</p>
               </div>
 
               {/* Mercado Pago Button */}
@@ -803,36 +803,60 @@ export const CrowdfundingLanding: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {fundraiser.contributions.map((donation) => (
-            <div
-              key={donation.id}
-              className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-2xs hover:shadow-xs transition-shadow space-y-2.5 flex flex-col justify-between"
+        {fundraiser.contributions.length === 0 ? (
+          <div className="text-center py-12 px-6 bg-white rounded-3xl border border-stone-200/90 shadow-2xs space-y-4">
+            <div className="w-14 h-14 mx-auto rounded-full bg-amber-50 border border-amber-200 text-amber-800 flex items-center justify-center">
+              <Heart className="w-7 h-7 text-amber-700" />
+            </div>
+            <div className="space-y-1 max-w-md mx-auto">
+              <h4 className="font-serif-sacred font-bold text-stone-900 text-lg">
+                La campaña está comenzando
+              </h4>
+              <p className="text-xs text-stone-500 font-serif leading-relaxed">
+                Sé de los primeros en colaborar con el fondo del viaje de inmersión. Tu aporte abrirá este muro y alentará a toda la comunidad.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsDonateModalOpen(true)}
+              className="px-5 py-2.5 bg-amber-800 hover:bg-amber-900 text-white rounded-xl text-xs font-semibold shadow-xs inline-flex items-center space-x-2 transition-all cursor-pointer"
             >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-stone-900 text-xs sm:text-sm flex items-center space-x-1.5">
-                    <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-                    <span>{donation.isAnonymous ? 'Donante Anónimo' : donation.donorName}</span>
-                  </span>
-                  <span className="font-bold text-amber-900 text-xs sm:text-sm font-mono">
-                    {formatCurrency(donation.amount)}
-                  </span>
+              <Gift className="w-4 h-4 text-amber-200" />
+              <span>Hacer el Primer Aporte</span>
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {fundraiser.contributions.map((donation) => (
+              <div
+                key={donation.id}
+                className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-2xs hover:shadow-xs transition-shadow space-y-2.5 flex flex-col justify-between"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-stone-900 text-xs sm:text-sm flex items-center space-x-1.5">
+                      <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+                      <span>{donation.isAnonymous ? 'Donante Anónimo' : donation.donorName}</span>
+                    </span>
+                    <span className="font-bold text-amber-900 text-xs sm:text-sm font-mono">
+                      {formatCurrency(donation.amount)}
+                    </span>
+                  </div>
+
+                  {donation.message && (
+                    <p className="text-xs text-stone-600 font-serif italic leading-relaxed bg-[#FAF8F5] p-2.5 rounded-xl border border-stone-100">
+                      «{donation.message}»
+                    </p>
+                  )}
                 </div>
 
-                {donation.message && (
-                  <p className="text-xs text-stone-600 font-serif italic leading-relaxed bg-[#FAF8F5] p-2.5 rounded-xl border border-stone-100">
-                    «{donation.message}»
-                  </p>
-                )}
+                <span className="text-[10px] text-stone-400 block pt-1 border-t border-stone-100">
+                  Registrado el {donation.date}
+                </span>
               </div>
-
-              <span className="text-[10px] text-stone-400 block pt-1 border-t border-stone-100">
-                Registrado el {donation.date}
-              </span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* FAQ SECTION */}
@@ -911,10 +935,10 @@ export const CrowdfundingLanding: React.FC = () => {
 
           <div className="border-t border-stone-800 pt-6 text-center text-xs text-stone-400 space-y-2 font-serif">
             <p>
-              Campaña solidaria sin fines de lucro para la formación sacerdotal propedéutica y el retiro comunitario en Granja Épicos (11 al 20 de Enero).
+              Iniciativa impulsada por los estudiantes del Proseminario de la Comunidad de Cristianos para hacer posible el viaje de inmersión en Granja Épicos (11 al 20 de Enero).
             </p>
             <p className="text-[11px] text-stone-400 font-mono">
-              Asociación Civil Comunidad de Cristianos • Buenos Aires, Argentina
+              Grupo de Estudiantes del Proseminario de la Comunidad de Cristianos • Buenos Aires, Argentina
             </p>
           </div>
         </div>

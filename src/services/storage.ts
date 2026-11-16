@@ -37,7 +37,7 @@ const KEYS = {
   MEETINGS: 'proseminario_meetings_v3',
   ACTIVE_USER: 'proseminario_active_user_v4',
   ATTENDANCE: 'proseminario_attendance_v4',
-  FUNDRAISER: 'proseminario_fundraiser_v3',
+  FUNDRAISER: 'proseminario_fundraiser_v5',
   TRIP: 'proseminario_trip_v2',
   CLASSES: 'proseminario_classes_v2',
   USERS: 'proseminario_users_v4',
