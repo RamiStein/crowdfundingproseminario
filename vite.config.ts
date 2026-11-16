@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/sistema-aqui-y-ahora/',
+  base: '/crowdfundingproseminario/',
   plugins: [
     react(),
     tailwindcss(),

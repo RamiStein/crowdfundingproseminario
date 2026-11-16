@@ -3,7 +3,12 @@
 
 Plataforma integradora de estudio, comunión fraternal y discernimiento vocacional para los participantes del Proseminario.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/RamiStein/sistema-aqui-y-ahora)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/RamiStein/crowdfundingproseminario)
+
+---
+
+## 🌐 Sitio Web en Vivo (GitHub Pages)
+👉 **[https://ramistein.github.io/crowdfundingproseminario/](https://ramistein.github.io/crowdfundingproseminario/)**
 
 ---
 
@@ -24,7 +29,7 @@ Unificar y simplificar toda la vida del proseminario en un entorno cálido, cont
 ## 🚀 Despliegue en Vercel
 
 Haz clic en el siguiente enlace para desplegar la web en tu cuenta de Vercel con un solo clic:
-👉 **[Desplegar en Vercel](https://vercel.com/new/clone?repository-url=https://github.com/RamiStein/sistema-aqui-y-ahora)**
+👉 **[Desplegar en Vercel](https://vercel.com/new/clone?repository-url=https://github.com/RamiStein/crowdfundingproseminario)**
 
 ### Desarrollo Local
 
