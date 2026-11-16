@@ -96,7 +96,7 @@ export const USER_PRIEST_VIVIANE: UserProfile = {
 // Participantes Reales
 export const USER_RAMIRO: UserProfile = {
   id: 'user_ramiro',
-  name: 'Ramiro (Tú)',
+  name: 'Ramiro',
   role: 'estudiante',
   avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=200&q=80',
   locality: 'Buenos Aires, Argentina',

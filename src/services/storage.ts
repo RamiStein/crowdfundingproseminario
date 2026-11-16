@@ -35,12 +35,12 @@ const KEYS = {
   BOOKS: 'proseminario_books_v1',
   SUMMARIES: 'proseminario_summaries_v3',
   MEETINGS: 'proseminario_meetings_v3',
-  ACTIVE_USER: 'proseminario_active_user_v3',
-  ATTENDANCE: 'proseminario_attendance_v3',
-  FUNDRAISER: 'proseminario_fundraiser_v2',
+  ACTIVE_USER: 'proseminario_active_user_v4',
+  ATTENDANCE: 'proseminario_attendance_v4',
+  FUNDRAISER: 'proseminario_fundraiser_v3',
   TRIP: 'proseminario_trip_v2',
   CLASSES: 'proseminario_classes_v2',
-  USERS: 'proseminario_users_v3',
+  USERS: 'proseminario_users_v4',
 };
 
 function getFromStorage<T>(key: string, defaultValue: T): T {
