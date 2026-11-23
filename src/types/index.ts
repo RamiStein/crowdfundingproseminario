@@ -189,6 +189,11 @@ export interface FundraiserCampaign {
   cbuNumber: string;
   titular: string;
   banco: string;
+  cbuUsd?: string;
+  aliasUsd?: string;
+  paypalEmail?: string;
+  receiptPhone?: string;
+  receiptContact?: string;
   mercadoPagoLink?: string;
   breakdown: {
     label: string;

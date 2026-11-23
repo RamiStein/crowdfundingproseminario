@@ -26,9 +26,13 @@ import {
   HelpCircle,
   Heart,
   Share2,
-  BookOpen
+  BookOpen,
+  Globe,
+  MessageCircle
 } from 'lucide-react';
 import { Modal } from '../common/Modal';
+import { MULTILINGUAL_DATA, SupportedLanguage } from '../../data/multilingualBroadcast';
+import { ShareCampaignModal } from './ShareCampaignModal';
 
 export const CrowdfundingLanding: React.FC = () => {
   const { fundraiser, addDonation, immersionTrip, availableUsers, showToast } = useApp();
@@ -36,6 +40,8 @@ export const CrowdfundingLanding: React.FC = () => {
   // Modals state
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [donationLanguage, setDonationLanguage] = useState<SupportedLanguage>('es');
   const [videoSourceType, setVideoSourceType] = useState<'local' | 'drive'>('local');
 
   // Donation form state
@@ -85,16 +91,7 @@ export const CrowdfundingLanding: React.FC = () => {
   };
 
   const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'Campaña Solidaria: Viaje de Inmersión Proseminario 2027',
-        text: 'Apoya el Viaje de Inmersión en Granja Épicos del Proseminario de la Comunidad de Cristianos (11 al 20 de Enero).',
-        url: window.location.href,
-      }).catch(() => {});
-    } else {
-      handleCopy(window.location.href, 'share');
-      showToast('Enlace de la campaña copiado para compartir.');
-    }
+    setIsShareModalOpen(true);
   };
 
   const formatCurrency = (val: number) => {
@@ -111,8 +108,12 @@ export const CrowdfundingLanding: React.FC = () => {
       a: 'Somos un grupo de estudiantes del Proseminario de la Comunidad de Cristianos que estamos solicitando colaboración económica para costear los gastos del retiro de inmersión en Granja Épicos. Todos los aportes se administran de forma comunitaria y transparente, destinados íntegramente a cubrir el hospedaje, la alimentación biodinámica y los pasajes del grupo.'
     },
     {
-      q: '¿Puedo colaborar desde fuera de Argentina (Uruguay, Chile, etc.)?',
-      a: '¡Sí! Varios participantes y donantes son de Uruguay, Chile y otros países hermanos. Para transferencias internacionales o PayPal / Western Union, contáctanos a través del correo de los coordinadores (equipo.sacerdotes@proseminario.org) y te brindaremos los datos correspondientes.'
+      q: '¿Cómo colaborar desde fuera de Argentina (Alemania, Brasil, Uruguay, Chile, etc.)?',
+      a: '¡Es muy sencillo! Puedes donar en dólares a nuestra cuenta CBU/Alias USD, o desde cualquier parte del mundo vía PayPal enviando tu aporte a proseminariolatinoamericano@comunidaddecristianos.org. Además, disponemos de los textos de difusión e información bancaria en 3 idiomas (Español, Alemán y Portugués).'
+    },
+    {
+      q: '¿A dónde envío el comprobante de mi aporte?',
+      a: 'Una vez realizada tu donación bancaria o por PayPal, por favor envía el comprobante al WhatsApp 223 526 3962 (Gabriela). En la sección de donación encontrarás un botón directo para enviarlo en tu propio idioma.'
     },
     {
       q: '¿Es posible realizar una donación anónima?',
@@ -171,10 +172,11 @@ export const CrowdfundingLanding: React.FC = () => {
           <div className="flex items-center space-x-2">
             <button
               onClick={handleShare}
-              title="Compartir enlace"
-              className="p-2.5 rounded-xl border border-stone-200 hover:bg-stone-50 text-stone-600 transition-colors"
+              title="Compartir mensaje de campaña en 3 idiomas"
+              className="px-3 py-2 rounded-xl border border-stone-200 hover:bg-stone-50 text-stone-700 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
             >
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-4 h-4 text-emerald-600" />
+              <span className="hidden sm:inline">Compartir</span>
             </button>
             <a
               href="#donar"
@@ -287,10 +289,18 @@ export const CrowdfundingLanding: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsVideoModalOpen(true)}
-                className="w-full sm:w-auto py-3.5 px-5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-2xl text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center space-x-2"
+                className="w-full sm:w-auto py-3.5 px-5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-2xl text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <Play className="w-4 h-4 text-amber-700 fill-amber-700" />
                 <span>Ver Video (3 min)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsShareModalOpen(true)}
+                className="w-full sm:w-auto py-3.5 px-5 bg-white hover:bg-stone-50 text-stone-800 border border-stone-200 rounded-2xl text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center space-x-2 shadow-2xs cursor-pointer"
+              >
+                <Share2 className="w-4 h-4 text-emerald-600" />
+                <span>Difundir (3 Idiomas)</span>
               </button>
             </div>
           </div>
@@ -622,84 +632,286 @@ export const CrowdfundingLanding: React.FC = () => {
       {/* CÓMO COLABORAR & REGISTRO DE APORTES */}
       <section id="donar" className="py-16 sm:py-20 bg-gradient-to-b from-[#F5EFE6] to-[#FAF6EE] border-t border-b border-amber-200/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-10">
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-3">
             <div className="inline-flex items-center space-x-2 text-amber-900 font-bold text-xs uppercase tracking-wider">
               <Gift className="w-4 h-4 text-amber-700" />
               <span>Canales Oficiales y Directos</span>
             </div>
             <h3 className="text-3xl sm:text-4xl font-bold font-serif-sacred text-stone-900">
-              Elige cómo hacer tu contribución
+              {donationLanguage === 'de' 
+                ? 'Wie können Sie unterstützen?' 
+                : donationLanguage === 'pt' 
+                ? 'Como você pode colaborar?' 
+                : 'Elige cómo hacer tu contribución'}
             </h3>
-            <p className="text-xs sm:text-sm text-stone-600 max-w-xl mx-auto font-serif">
-              Puedes realizar una transferencia bancaria directa (CBU / Alias) o usar Mercado Pago. Luego, notifica tu aporte para sumarlo al contador.
+            <p className="text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto font-serif leading-relaxed">
+              {donationLanguage === 'de'
+                ? 'Jeder Beitrag, ob groß oder klein, ist eine Möglichkeit, diesen Weg zu begleiten und mitzugestalten. Spenden in argentinischen Pesos, US-Dollar oder via PayPal aus dem Ausland.'
+                : donationLanguage === 'pt'
+                ? 'Cada contribuição, grande ou pequena, é uma forma de acompanhar e tornar este caminho possível. Doações em pesos argentinos, dólares ou via PayPal do exterior.'
+                : 'Cada contribución, grande o pequeña, es una forma de acompañar y hacer posible este camino. Puedes colaborar en pesos argentinos, dólares o desde el exterior vía PayPal.'}
             </p>
+
+            {/* Language Selector Tabs in the Donation Section */}
+            <div className="pt-2 flex flex-col items-center justify-center space-y-2">
+              <span className="text-[11px] font-bold text-amber-950/70 uppercase tracking-wider flex items-center space-x-1.5">
+                <Globe className="w-3.5 h-3.5 text-amber-800" />
+                <span>Información fijada en 3 idiomas / Sprachen / Idiomas:</span>
+              </span>
+              <div className="inline-flex p-1 rounded-2xl bg-amber-900/10 border border-amber-300 shadow-2xs">
+                {(Object.keys(MULTILINGUAL_DATA) as SupportedLanguage[]).map((langKey) => {
+                  const lang = MULTILINGUAL_DATA[langKey];
+                  const isSelected = donationLanguage === langKey;
+                  return (
+                    <button
+                      key={langKey}
+                      type="button"
+                      onClick={() => setDonationLanguage(langKey)}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-amber-900 text-white shadow-xs'
+                          : 'text-amber-950 hover:bg-white/60'
+                      }`}
+                    >
+                      <span className="text-sm">{lang.flag}</span>
+                      <span>{lang.nativeName}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Col: Bank details (6 cols) */}
-            <div className="lg:col-span-6 bg-white rounded-3xl border border-amber-300/80 p-6 sm:p-8 shadow-sm space-y-5">
-              <div className="flex items-center space-x-2 text-amber-900 font-bold text-xs uppercase tracking-wider">
-                <ShieldCheck className="w-4 h-4 text-amber-700" />
-                <span>Datos Bancarios Oficiales</span>
-              </div>
-
-              {/* Alias Card */}
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-amber-200 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-stone-400 uppercase font-bold block">Alias CBU / CVU</span>
-                  <span className="text-base sm:text-lg font-bold text-stone-900 font-mono tracking-wide">
-                    {fundraiser.aliasCbu}
+            {/* Left Col: Bank and Payment Channels in selected language (7 cols) */}
+            <div className="lg:col-span-7 bg-white rounded-3xl border border-amber-300/80 p-6 sm:p-8 shadow-sm space-y-5">
+              <div className="flex items-center justify-between border-b border-amber-100 pb-3">
+                <div className="flex items-center space-x-2 text-amber-900 font-bold text-xs uppercase tracking-wider">
+                  <ShieldCheck className="w-4 h-4 text-amber-700" />
+                  <span>
+                    {donationLanguage === 'de'
+                      ? 'Offizielle Bank- & Spendedaten'
+                      : donationLanguage === 'pt'
+                      ? 'Dados Bancários Oficiais'
+                      : 'Datos Bancarios Oficiales'}
                   </span>
                 </div>
                 <button
-                  onClick={() => handleCopy(fundraiser.aliasCbu, 'alias')}
-                  className="px-3.5 py-2 bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold rounded-xl flex items-center space-x-1.5 transition-colors shadow-2xs"
+                  type="button"
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="text-xs text-amber-800 hover:text-amber-950 font-semibold flex items-center space-x-1 cursor-pointer"
+                  title="Compartir mensaje oficial"
                 >
-                  {copiedField === 'alias' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedField === 'alias' ? 'Copiado' : 'Copiar Alias'}</span>
+                  <Share2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Compartir mensaje</span>
                 </button>
               </div>
 
-              {/* CBU Card */}
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-amber-200 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-stone-400 uppercase font-bold block">Número de CBU</span>
-                  <span className="text-xs sm:text-sm font-semibold text-stone-800 font-mono">
-                    {fundraiser.cbuNumber}
+              {/* 1. ARS PESOS CARD */}
+              <div className="bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-amber-200/90 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-amber-950 flex items-center space-x-1.5">
+                    <span>{MULTILINGUAL_DATA[donationLanguage].arsSection.title}</span>
+                  </span>
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-900 font-semibold">
+                    Brubank
                   </span>
                 </div>
-                <button
-                  onClick={() => handleCopy(fundraiser.cbuNumber, 'cbu')}
-                  className="px-3.5 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold rounded-xl flex items-center space-x-1.5 transition-colors"
-                >
-                  {copiedField === 'cbu' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedField === 'cbu' ? 'Copiado' : 'Copiar'}</span>
-                </button>
+
+                <div className="text-xs text-stone-600 font-serif space-y-1 bg-white p-3 rounded-xl border border-stone-200/80">
+                  <p>
+                    <strong>{MULTILINGUAL_DATA[donationLanguage].arsSection.holderLabel}:</strong>{' '}
+                    {MULTILINGUAL_DATA[donationLanguage].arsSection.holderValue}
+                  </p>
+                  <p>
+                    <strong>{MULTILINGUAL_DATA[donationLanguage].arsSection.bankLabel}:</strong>{' '}
+                    {MULTILINGUAL_DATA[donationLanguage].arsSection.bankValue}
+                  </p>
+                </div>
+
+                {/* Alias ARS */}
+                <div className="bg-white p-3 rounded-xl border border-stone-200 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">
+                      {MULTILINGUAL_DATA[donationLanguage].arsSection.aliasLabel}
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-stone-900 font-mono tracking-wide">
+                      {MULTILINGUAL_DATA[donationLanguage].arsSection.aliasValue}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(MULTILINGUAL_DATA[donationLanguage].arsSection.aliasValue, 'alias_ars')}
+                    className="px-3.5 py-1.5 bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold rounded-lg flex items-center space-x-1 transition-colors cursor-pointer shadow-2xs"
+                  >
+                    {copiedField === 'alias_ars' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedField === 'alias_ars' ? 'Copiado' : 'Copiar Alias'}</span>
+                  </button>
+                </div>
+
+                {/* CBU ARS */}
+                <div className="bg-white p-3 rounded-xl border border-stone-200 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">
+                      {MULTILINGUAL_DATA[donationLanguage].arsSection.cbuLabel}
+                    </span>
+                    <span className="text-xs sm:text-sm font-semibold text-stone-800 font-mono break-all">
+                      {MULTILINGUAL_DATA[donationLanguage].arsSection.cbuValue}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(MULTILINGUAL_DATA[donationLanguage].arsSection.cbuValue, 'cbu_ars')}
+                    className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold rounded-lg flex items-center space-x-1 transition-colors cursor-pointer"
+                  >
+                    {copiedField === 'cbu_ars' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedField === 'cbu_ars' ? 'Copiado' : 'Copiar CBU'}</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Account details */}
-              <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200 text-xs text-stone-600 space-y-1 font-serif">
-                <p><strong>Titular:</strong> {fundraiser.titular}</p>
-                <p><strong>Banco:</strong> {fundraiser.banco}</p>
-                <p><strong>Destino:</strong> Fondo Solidario de Estudiantes del Proseminario</p>
+              {/* 2. USD CARD */}
+              <div className="bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-amber-200/90 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-amber-950 flex items-center space-x-1.5">
+                    <span>{MULTILINGUAL_DATA[donationLanguage].usdSection.title}</span>
+                  </span>
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-900 font-semibold">
+                    USD
+                  </span>
+                </div>
+
+                {/* Alias USD */}
+                <div className="bg-white p-3 rounded-xl border border-stone-200 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">
+                      {MULTILINGUAL_DATA[donationLanguage].usdSection.aliasLabel} (USD)
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-stone-900 font-mono tracking-wide">
+                      {MULTILINGUAL_DATA[donationLanguage].usdSection.aliasValue}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(MULTILINGUAL_DATA[donationLanguage].usdSection.aliasValue, 'alias_usd')}
+                    className="px-3.5 py-1.5 bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold rounded-lg flex items-center space-x-1 transition-colors cursor-pointer shadow-2xs"
+                  >
+                    {copiedField === 'alias_usd' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedField === 'alias_usd' ? 'Copiado' : 'Copiar Alias'}</span>
+                  </button>
+                </div>
+
+                {/* CBU USD */}
+                <div className="bg-white p-3 rounded-xl border border-stone-200 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">
+                      {MULTILINGUAL_DATA[donationLanguage].usdSection.cbuLabel} (USD)
+                    </span>
+                    <span className="text-xs sm:text-sm font-semibold text-stone-800 font-mono break-all">
+                      {MULTILINGUAL_DATA[donationLanguage].usdSection.cbuValue}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(MULTILINGUAL_DATA[donationLanguage].usdSection.cbuValue, 'cbu_usd')}
+                    className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold rounded-lg flex items-center space-x-1 transition-colors cursor-pointer"
+                  >
+                    {copiedField === 'cbu_usd' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedField === 'cbu_usd' ? 'Copiado' : 'Copiar CBU'}</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Mercado Pago Button */}
-              <div className="pt-2">
+              {/* 3. PAYPAL EXTERIOR */}
+              <div className="bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-amber-200/90 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-amber-950 flex items-center space-x-1.5">
+                    <span>{MULTILINGUAL_DATA[donationLanguage].paypalSection.title}</span>
+                  </span>
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-blue-100 text-blue-900 font-semibold">
+                    PayPal
+                  </span>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">
+                      {MULTILINGUAL_DATA[donationLanguage].paypalSection.recipientLabel}
+                    </span>
+                    <span className="text-xs sm:text-sm font-semibold text-stone-900 font-mono truncate block" title={MULTILINGUAL_DATA[donationLanguage].paypalSection.recipientValue}>
+                      {MULTILINGUAL_DATA[donationLanguage].paypalSection.recipientValue}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(MULTILINGUAL_DATA[donationLanguage].paypalSection.recipientValue, 'paypal')}
+                      className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold rounded-lg flex items-center space-x-1 transition-colors cursor-pointer"
+                    >
+                      {copiedField === 'paypal' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedField === 'paypal' ? 'Copiado' : 'Copiar'}</span>
+                    </button>
+                    <a
+                      href="https://www.paypal.com/signin"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 bg-[#0070BA] hover:bg-[#003087] text-white text-xs font-semibold rounded-lg flex items-center space-x-1 transition-colors"
+                    >
+                      <span>Abrir PayPal</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. COMPROBANTE WHATSAPP GABRIELA */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border border-emerald-300 space-y-3">
+                <div className="flex items-center space-x-2 text-emerald-900 font-bold text-xs uppercase tracking-wide">
+                  <span>📩 Envío del Comprobante</span>
+                </div>
+                <p className="text-xs sm:text-sm text-emerald-950 font-serif leading-relaxed">
+                  {MULTILINGUAL_DATA[donationLanguage].receiptSection.instruction}{' '}
+                  <strong>{MULTILINGUAL_DATA[donationLanguage].receiptSection.displayContact}</strong>
+                </p>
+
                 <a
-                  href={fundraiser.mercadoPagoLink}
+                  href={`https://wa.me/${MULTILINGUAL_DATA[donationLanguage].receiptSection.rawPhone}?text=${encodeURIComponent(MULTILINGUAL_DATA[donationLanguage].receiptSection.whatsappMessage)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full py-3 bg-[#009EE3] hover:bg-[#0082ba] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-colors shadow-xs"
+                  className="w-full py-3 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-colors shadow-xs"
                 >
-                  <span>Aportar con Mercado Pago</span>
-                  <ExternalLink className="w-4 h-4" />
+                  <MessageCircle className="w-4 h-4 fill-white" />
+                  <span>
+                    {donationLanguage === 'de'
+                      ? 'Zahlungsbeleg per WhatsApp an Gabriela senden'
+                      : donationLanguage === 'pt'
+                      ? 'Enviar comprovante via WhatsApp para Gabriela'
+                      : 'Enviar Comprobante por WhatsApp a Gabriela'}
+                  </span>
                 </a>
+              </div>
+
+              {/* Share button banner */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="w-full py-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center space-x-2 transition-colors cursor-pointer border border-stone-200"
+                >
+                  <Share2 className="w-4 h-4 text-emerald-600" />
+                  <span>
+                    {donationLanguage === 'de'
+                      ? 'Spendenaufruf in 3 Sprachen teilen (WhatsApp / Text)'
+                      : donationLanguage === 'pt'
+                      ? 'Compartilhar mensagem oficial em 3 idiomas'
+                      : 'Compartir mensaje oficial en 3 idiomas (WhatsApp / Texto)'}
+                  </span>
+                </button>
               </div>
             </div>
 
-            {/* Right Col: Instant Donation / Notification Form (6 cols) */}
-            <div className="lg:col-span-6 bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-sm space-y-5">
+            {/* Right Col: Instant Donation / Notification Form (5 cols) */}
+            <div className="lg:col-span-5 bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-sm space-y-5">
               <div className="flex items-center space-x-2 text-stone-900 font-bold text-xs uppercase tracking-wider">
                 <Gift className="w-4 h-4 text-amber-700" />
                 <span>Registrar o Notificar tu Aporte</span>
@@ -1113,6 +1325,13 @@ export const CrowdfundingLanding: React.FC = () => {
           </div>
         </form>
       </Modal>
+
+      {/* MULTILINGUAL SHARE MODAL */}
+      <ShareCampaignModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        showToast={showToast}
+      />
     </div>
   );
 };
