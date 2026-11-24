@@ -292,7 +292,7 @@ export const CrowdfundingLanding: React.FC = () => {
                 className="w-full sm:w-auto py-3.5 px-5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-2xl text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <Play className="w-4 h-4 text-amber-700 fill-amber-700" />
-                <span>Ver Video (3 min)</span>
+                <span>Ver Video Promocional (4:43 min)</span>
               </button>
               <button
                 type="button"
@@ -307,53 +307,38 @@ export const CrowdfundingLanding: React.FC = () => {
         </div>
       </section>
 
-      {/* VIDEO SECTION ("¿Para qué necesitamos este dinero?") */}
+      {/* VIDEO SECTION */}
       <section id="video" className="py-16 sm:py-20 bg-stone-900 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Video Thumbnail (7 cols) */}
-            <div 
-              className="lg:col-span-7 relative h-72 sm:h-96 w-full bg-stone-950 rounded-3xl overflow-hidden border border-stone-800 shadow-2xl group cursor-pointer"
-              onClick={() => setIsVideoModalOpen(true)}
-            >
-              <img
-                src={fundraiser.videoThumbnail}
-                alt="Video explicativo del viaje"
-                className="w-full h-full object-cover opacity-75 group-hover:scale-105 group-hover:opacity-90 transition-all duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-              {/* Play Button */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-amber-600/90 text-white flex items-center justify-center shadow-2xl group-hover:bg-amber-500 group-hover:scale-110 transition-all border-2 border-white/50 ring-8 ring-amber-500/30">
-                  <Play className="w-9 h-9 fill-white translate-x-0.5" />
-                </div>
-              </div>
-
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-stone-300">
-                <span className="bg-black/70 px-3 py-1 rounded-full backdrop-blur-xs font-mono">
-                  Duración: 3:15 min
-                </span>
-                <span className="text-amber-300 font-semibold flex items-center space-x-1">
-                  <span>Toca para ver testimonios</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
+            {/* Inline Video Player (7 cols) */}
+            <div className="lg:col-span-7 relative w-full bg-black rounded-3xl overflow-hidden border border-stone-800 shadow-2xl flex items-center justify-center">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster="./video-poster.jpg"
+                className="w-full max-h-[460px] object-contain bg-black"
+              >
+                <source src="./video-promocional.mp4?v=2027b" type="video/mp4" />
+                <source src="./video-inmersion.mp4" type="video/mp4" />
+                Tu navegador no soporta reproducción directa de video.
+              </video>
             </div>
 
             {/* Text description (5 cols) */}
             <div className="lg:col-span-5 space-y-4">
               <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold uppercase tracking-wider">
                 <Play className="w-3 h-3 fill-amber-300" />
-                <span>La voz de los sacerdotes y estudiantes</span>
+                <span>Video Promocional Oficial • 4:43 min</span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-bold font-serif-sacred text-stone-100 leading-tight">
-                ¿Para qué necesitamos este dinero?
+                El Impulso del Proseminario y la Inmersión 2027
               </h3>
 
               <p className="text-sm text-stone-300 font-serif leading-relaxed">
-                En este video, los sacerdotes coordinadores (Telma, Luis, Nicolás) y consejeros (Pablo, Viviane) junto a los estudiantes del Proseminario explican por qué la inmersión en la tierra biodinámica y el ritmo sagrado cotidiano no son un lujo, sino el cimiento indispensable de la vocación.
+                En este video promocional, los sacerdotes y estudiantes del Proseminario Latinoamericano comparten la vivencia comunitaria, la trascendencia del retiro de inmersión en Granja Épicos (11 al 20 de Enero) y el valor de sostener este camino juntos.
               </p>
 
               <blockquote className="border-l-2 border-amber-500 pl-4 text-xs text-amber-200/90 italic font-serif leading-relaxed">
@@ -364,10 +349,10 @@ export const CrowdfundingLanding: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsVideoModalOpen(true)}
-                  className="px-5 py-3 bg-amber-700 hover:bg-amber-800 text-white rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition-all shadow-md"
+                  className="px-5 py-3 bg-amber-700 hover:bg-amber-800 text-white rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 transition-all shadow-md cursor-pointer"
                 >
                   <Play className="w-4 h-4 fill-white" />
-                  <span>Reproducir Video</span>
+                  <span>Ver en Pantalla Completa</span>
                 </button>
                 <a
                   href="https://drive.google.com/file/d/1YM4dtZkpikU3N2CaunDWz9DNK232hZkx/view?usp=sharing"
@@ -1160,8 +1145,8 @@ export const CrowdfundingLanding: React.FC = () => {
       <Modal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        title={fundraiser.videoTitle}
-        subtitle="Testimonios de sacerdotes y estudiantes sobre el retiro en Granja Épicos"
+        title="Video Promocional: Viaje de Inmersión Proseminario 2027"
+        subtitle="Reproductor oficial en HD (4:43 min) y enlace a Google Drive"
         maxWidth="3xl"
       >
         <div className="space-y-4">
@@ -1210,8 +1195,10 @@ export const CrowdfundingLanding: React.FC = () => {
                 controls
                 autoPlay
                 playsInline
+                poster="./video-poster.jpg"
                 className="w-full h-full object-contain"
               >
+                <source src="./video-promocional.mp4?v=2027b" type="video/mp4" />
                 <source src="./video-inmersion.mp4" type="video/mp4" />
                 Tu navegador no soporta reproducción directa de video.
               </video>
@@ -1219,7 +1206,7 @@ export const CrowdfundingLanding: React.FC = () => {
               <iframe
                 key="drive-video"
                 src="https://drive.google.com/file/d/1YM4dtZkpikU3N2CaunDWz9DNK232hZkx/preview"
-                title="Video explicativo del viaje del Proseminario en Google Drive"
+                title="Video promocional del viaje del Proseminario en Google Drive"
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -1229,7 +1216,7 @@ export const CrowdfundingLanding: React.FC = () => {
 
           <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-stone-200 text-xs text-stone-700 font-serif leading-relaxed">
             <span className="font-bold text-stone-900 block mb-1">Sobre este video:</span>
-            Los sacerdotes coordinadores (Telma, Luis, Nicolás) y consejeros (Pablo, Viviane) explican la trascendencia de la convivencia en la tierra y el Acto de Consagración diario para templar el alma en el camino sacerdotal antroposófico.
+            Video promocional oficial de difusión con testimonios de la Comunidad de Cristianos para el viaje de inmersión en Granja Épicos (11 al 20 de Enero).
           </div>
 
           <div className="flex justify-end pt-2">
