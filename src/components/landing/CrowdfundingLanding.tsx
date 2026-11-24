@@ -370,7 +370,7 @@ export const CrowdfundingLanding: React.FC = () => {
                   <span>Reproducir Video</span>
                 </button>
                 <a
-                  href="https://drive.google.com/file/d/12zkYM2V17EQxHbh9HdTORKES05AkTieE/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1YM4dtZkpikU3N2CaunDWz9DNK232hZkx/view?usp=sharing"
                   target="_blank"
                   rel="noreferrer"
                   className="px-4 py-3 bg-white/10 hover:bg-white/20 text-stone-200 border border-white/20 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center space-x-1.5"
@@ -1193,7 +1193,7 @@ export const CrowdfundingLanding: React.FC = () => {
             </div>
 
             <a
-              href="https://drive.google.com/file/d/12zkYM2V17EQxHbh9HdTORKES05AkTieE/view?usp=sharing"
+              href="https://drive.google.com/file/d/1YM4dtZkpikU3N2CaunDWz9DNK232hZkx/view?usp=sharing"
               target="_blank"
               rel="noreferrer"
               className="text-amber-800 hover:text-amber-900 font-semibold flex items-center space-x-1"
@@ -1218,7 +1218,7 @@ export const CrowdfundingLanding: React.FC = () => {
             ) : (
               <iframe
                 key="drive-video"
-                src="https://drive.google.com/file/d/12zkYM2V17EQxHbh9HdTORKES05AkTieE/preview"
+                src="https://drive.google.com/file/d/1YM4dtZkpikU3N2CaunDWz9DNK232hZkx/preview"
                 title="Video explicativo del viaje del Proseminario en Google Drive"
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
