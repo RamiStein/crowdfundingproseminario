@@ -120,7 +120,7 @@ export const CrowdfundingLanding: React.FC = () => {
       a: 'Por supuesto. Al momento de registrar tu aporte en el formulario puedes marcar la casilla "Donante Anónimo". Tu monto sumará a la meta global y tu mensaje se publicará sin revelar tu identidad.'
     },
     {
-      q: '¿Qué sucede si se supera la meta de $3.200.000?',
+      q: '¿Qué sucede si se supera la meta de $19.000.000?',
       a: 'Cualquier excedente será reservado para el Fondo de Becas Continuas del ciclo lectivo 2027, cubriendo los pasajes de los encuentros intermedios presenciales y la adquisición de bibliografía esencial para los integrantes con menores recursos.'
     }
   ];

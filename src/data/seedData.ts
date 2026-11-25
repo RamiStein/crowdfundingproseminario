@@ -920,7 +920,7 @@ export const SEED_ATTENDANCE_SESSIONS: AttendanceSession[] = [
 export const SEED_FUNDRAISER: FundraiserCampaign = {
   title: 'Campaña Solidaria: Viaje de Inmersión Proseminario 2027',
   subtitle: 'Fondo comunitario para cubrir hospedaje, alimentación biodinámica y becas de viaje para todos los integrantes.',
-  goalAmount: 3200000,
+  goalAmount: 19000000,
   currentAmount: 0,
   currency: 'ARS',
   videoUrl: './video-promocional.mp4?v=2027b',
@@ -940,18 +940,18 @@ export const SEED_FUNDRAISER: FundraiserCampaign = {
   breakdown: [
     {
       label: 'Hospedaje y Alimentación en Granja Épicos (10 días: 11 al 20 de Enero)',
-      amount: 1750000,
-      description: 'Alojamiento para los 17 integrantes y el equipo sacerdotal, más cuatro comidas diarias elaboradas con ingredientes biodinámicos de la propia granja.'
+      amount: 11000000,
+      description: 'Alojamiento para los 17 estudiantes y el equipo de sacerdotes acompañantes, más cuatro comidas diarias elaboradas con ingredientes biodinámicos de la propia granja durante los 10 días de convivencia.'
     },
     {
-      label: 'Fondo de Becas de Pasajes para Estudiantes del Interior',
-      amount: 950000,
-      description: 'Aporte solidario para traslados terrestres desde Mendoza, Bariloche, Córdoba y Montevideo (Uruguay).'
+      label: 'Fondo de Becas de Pasajes y Traslados para Estudiantes',
+      amount: 5500000,
+      description: 'Aporte solidario para cubrir traslados de larga distancia para participantes de Bariloche, Mendoza, Córdoba, Uruguay y Chile.'
     },
     {
       label: 'Materiales Pedagógicos, Textos y Capilla Portátil',
-      amount: 500000,
-      description: 'Cuadernos de estudio, velas de cera de abejas, vestiduras para el Acto de Consagración y elementos de trabajo en la tierra.'
+      amount: 2500000,
+      description: 'Cuadernos de estudio, bibliografía formativa, vestiduras litúrgicas para el Acto de Consagración, velas de cera pura de abejas y elementos de trabajo en la tierra.'
     }
   ],
   contributions: []
