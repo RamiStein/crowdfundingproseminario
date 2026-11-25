@@ -28,7 +28,7 @@ export const ShareCampaignModal: React.FC<ShareCampaignModalProps> = ({
   const [selectedLang, setSelectedLang] = useState<SupportedLanguage>('es');
   const [copiedType, setCopiedType] = useState<'all' | 'link' | null>(null);
 
-  const siteUrl = typeof window !== 'undefined' ? window.location.href : 'https://crowdfunding-proseminario.vercel.app';
+  const siteUrl = typeof window !== 'undefined' ? window.location.href : 'https://crowdfundingproseminario.vercel.app';
   const currentData = MULTILINGUAL_DATA[selectedLang];
   const fullShareText = GET_SHARE_MESSAGE_WITH_LINK(selectedLang, siteUrl);
 
