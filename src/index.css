@@ -1,31 +1,7 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Adumu';
-  src: url('./assets/fonts/Adumu.woff') format('woff'),
-       url('./assets/fonts/Adumu.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Adumu-Inline';
-  src: url('./assets/fonts/Adumu-Inline.woff') format('woff'),
-       url('./assets/fonts/Adumu-Inline.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@theme {
-  --font-adumu: 'Adumu', 'Cormorant Garamond', Georgia, serif;
-  --font-serif-sacred: 'Adumu', 'Cormorant Garamond', Georgia, serif;
-}
-
 @layer base {
   :root {
-    --font-heading: 'Adumu', 'Cormorant Garamond', Georgia, serif;
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
@@ -37,16 +13,9 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, .font-serif-sacred, .font-adumu {
-    font-family: var(--font-heading);
-    letter-spacing: 0.02em;
+  h1, h2, h3, h4, .font-serif-sacred {
+    font-family: var(--font-serif);
   }
-}
-
-/* Explicit class for titling with Adumu */
-.font-serif-sacred,
-.font-adumu {
-  font-family: 'Adumu', 'Cormorant Garamond', Georgia, serif !important;
 }
 
 /* Custom delicate scrollbars */
