@@ -11,7 +11,10 @@ import {
   Check, 
   Share2, 
   ExternalLink, 
-  Globe 
+  Globe,
+  Download,
+  Image as ImageIcon,
+  Smartphone
 } from 'lucide-react';
 
 interface ShareCampaignModalProps {
@@ -174,6 +177,73 @@ export const ShareCampaignModal: React.FC<ShareCampaignModalProps> = ({
 
           <div className="bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-amber-200/90 text-xs sm:text-[13px] text-stone-700 font-sans leading-relaxed whitespace-pre-line max-h-72 overflow-y-auto shadow-inner select-all">
             {fullShareText}
+          </div>
+        </div>
+
+        {/* Official Flyers for WhatsApp & Social Media */}
+        <div className="bg-[#fcfaf7] border border-amber-200/80 rounded-2xl p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-900 flex items-center space-x-1.5">
+              <ImageIcon className="w-3.5 h-3.5 text-amber-700" />
+              <span>Flyers Oficiales con la Obra Artística (Descargar):</span>
+            </span>
+            <span className="text-[11px] text-amber-700 font-medium">Listos para WhatsApp</span>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {/* Flyer Vertical: Estado / Story */}
+            <a
+              href={`${import.meta.env.BASE_URL}flyer-proseminario-vertical.jpg`}
+              download="Flyer-Proseminario-Estado-WhatsApp.jpg"
+              target="_blank"
+              rel="noreferrer"
+              className="p-3 bg-white hover:bg-amber-50/70 border border-amber-200/70 hover:border-amber-400 rounded-xl flex items-center space-x-3 transition-all group shadow-2xs"
+            >
+              <div className="w-10 h-14 bg-stone-900 rounded-md overflow-hidden shrink-0 border border-stone-200 shadow-inner flex items-center justify-center">
+                <img
+                  src={`${import.meta.env.BASE_URL}flyer-proseminario-vertical.jpg`}
+                  alt="Flyer Estado WhatsApp"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-bold text-stone-800 flex items-center space-x-1">
+                  <Smartphone className="w-3.5 h-3.5 text-amber-700" />
+                  <span>Estado de WhatsApp</span>
+                </div>
+                <p className="text-[11px] text-stone-500 truncate">Formato Vertical 9:16</p>
+              </div>
+              <div className="p-2 bg-stone-100 group-hover:bg-amber-100 text-stone-700 group-hover:text-amber-900 rounded-lg transition-colors">
+                <Download className="w-4 h-4" />
+              </div>
+            </a>
+
+            {/* Flyer Post / Chat: Grupos */}
+            <a
+              href={`${import.meta.env.BASE_URL}flyer-proseminario-post.jpg`}
+              download="Flyer-Proseminario-Grupos-WhatsApp.jpg"
+              target="_blank"
+              rel="noreferrer"
+              className="p-3 bg-white hover:bg-amber-50/70 border border-amber-200/70 hover:border-amber-400 rounded-xl flex items-center space-x-3 transition-all group shadow-2xs"
+            >
+              <div className="w-11 h-14 bg-stone-900 rounded-md overflow-hidden shrink-0 border border-stone-200 shadow-inner flex items-center justify-center">
+                <img
+                  src={`${import.meta.env.BASE_URL}flyer-proseminario-post.jpg`}
+                  alt="Flyer Chat y Grupos WhatsApp"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-bold text-stone-800 flex items-center space-x-1">
+                  <ImageIcon className="w-3.5 h-3.5 text-amber-700" />
+                  <span>Imagen para Grupos</span>
+                </div>
+                <p className="text-[11px] text-stone-500 truncate">Formato Post 4:5</p>
+              </div>
+              <div className="p-2 bg-stone-100 group-hover:bg-amber-100 text-stone-700 group-hover:text-amber-900 rounded-lg transition-colors">
+                <Download className="w-4 h-4" />
+              </div>
+            </a>
           </div>
         </div>
 
